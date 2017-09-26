@@ -17,10 +17,14 @@ cur.execute('''SELECT DISTINCT from_id, to_id FROM Links''')
 for row in cur:
     from_id = row[0]
     to_id = row[1]
+    # si es el mismo origen - destino, entonces no se considera
     if from_id == to_id : continue
+    # si el origen no esta en los origenes consultados al inicio (???), entonces no se considera
     if from_id not in from_ids : continue
+    # si el destino no esta en los origenes consultados al inicio, entonces no se considera
     if to_id not in from_ids : continue
     links.append(row)
+    # asegura que solo se agregue una vez el to_id en to_ids
     if to_id not in to_ids : to_ids.append(to_id)
 
 # Get latest page ranks for strongly connected component
@@ -47,11 +51,11 @@ for i in range(many):
     for (node, old_rank) in list(prev_ranks.items()):
         total = total + old_rank
         next_ranks[node] = 0.0
-    # print total
-
+        print('node:', node, 'total:', total)
+    print('<==========')
     # Find the number of outbound links and sent the page rank down each
     for (node, old_rank) in list(prev_ranks.items()):
-        # print node, old_rank
+        print('node:', node, 'old rank:', old_rank)
         give_ids = list()
         for (from_id, to_id) in links:
             if from_id != node : continue
@@ -61,11 +65,11 @@ for i in range(many):
             give_ids.append(to_id)
         if ( len(give_ids) < 1 ) : continue
         amount = old_rank / len(give_ids)
-        # print node, old_rank,amount, give_ids
+        print('node:',node, 'old rank:',old_rank,'amount:',amount, 'give ids',give_ids)
     
         for id in give_ids:
             next_ranks[id] = next_ranks[id] + amount
-    
+        print('===== <<<<< >>>>> ======')
     newtot = 0
     for (node, next_rank) in list(next_ranks.items()):
         newtot = newtot + next_rank

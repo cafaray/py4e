@@ -15,22 +15,27 @@ conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Pages
-    (id INTEGER PRIMARY KEY, url TEXT UNIQUE, html TEXT,
-     error INTEGER, old_rank REAL, new_rank REAL)''')
+    (id INTEGER PRIMARY KEY, 
+    url TEXT UNIQUE, 
+    html TEXT,
+    error INTEGER, 
+    old_rank REAL, 
+    new_rank REAL)''')
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Links
-    (from_id INTEGER, to_id INTEGER)''')
+    (from_id INTEGER, 
+    to_id INTEGER)''')
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Webs (url TEXT UNIQUE)''')
 
 # Check to see if we are already in progress...
-cur.execute('SELECT id,url FROM Pages WHERE html is NULL and error is NULL ORDER BY RANDOM() LIMIT 1')
+cur.execute('SELECT id, url FROM Pages WHERE html is NULL and error is NULL ORDER BY RANDOM() LIMIT 1')
 row = cur.fetchone()
 if row is not None:
     print("Restarting existing crawl.  Remove spider.sqlite to start a fresh crawl.")
 else :
     starturl = input('Enter web url or enter: ')
-    if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
+    if ( len(starturl) < 1 ) : starturl = 'http://python-data.dr-chuck.net/'
     if ( starturl.endswith('/') ) : starturl = starturl[:-1]
     web = starturl
     if ( starturl.endswith('.htm') or starturl.endswith('.html') ) :
