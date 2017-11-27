@@ -1,13 +1,8 @@
 import re
 
-requests= ["I need a new window.", 
- "I really, really want to replace my window!", 
- "Replace my window.", 
- "I want a new window.", 
- "I want a new carpet, I want a new carpet, I want a new carpet.", 
- "Replace my carpet"]
-ids= [374, 2845, 83, 1848, 1837, 1500]
-threshold = 0.5
+requests= ["I need a new window"]
+ids= [239]
+threshold = 0
 
 def spamClusterization(requests, ids, threshold):
     sets = list()
@@ -15,15 +10,7 @@ def spamClusterization(requests, ids, threshold):
         words = re.findall('[a-z]+', e.lower())
         sets.append(set(words))
     ji = [[jaccardIndices(set1, set2) for set1 in sets] for set2 in sets] 
-    
-    #cluster = [ids[x] for x in range(0, len(ji)) if threshold in ji[x]]
-    clusters = calculateSecond(threshold, ji, ids)
-    print(clusters)
-    #result = list()
-    #if len(clusters) > 0:
-    #    result.append(sorted(clusters))
-    #if len(cluster2) > 0:
-    #    result.append(sorted(clusters))
+    clusters = calculateSecond(threshold, ji, ids)    
     return clusters
     
 def jaccardIndices(set1, set2):    
@@ -49,8 +36,8 @@ def calculateSecond(threshold, sets, ids):
                             clusters[key].append(ids[x])
                     else:
                         clusters[key] = [ids[x], ids[y]]
-
-    result.append(sorted(cluster.get(threshold)))
+    if cluster.get(threshold):
+        result.append(sorted(cluster.get(threshold)))
     for item in clusters.items():
         if len(item[1]) > 0:
             result.append(sorted(item[1]))
