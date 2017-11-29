@@ -9,7 +9,7 @@
 # print out the counts, sorted by hour as shown below.
 
 name = input("Enter file:")
-if len(name) < 1 : name = "mbox-short.txt"
+if len(name) < 1 : name = "../resources/mbox-short.txt"
 try:
     fhandle = open(name)
 except:
