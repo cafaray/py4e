@@ -43,3 +43,26 @@ BEGIN
     END WHILE;
     RETURN @price;
 END
+
+/*Please add ; after each select statement*/
+CREATE PROCEDURE bugsInComponent()
+BEGIN    
+
+        SELECT b.title bug_title, c.title component_title, 
+            (SELECT COUNT(component_id) 
+               FROM BugComponent e INNER JOIN Component f 
+               ON e.component_id = f.id WHERE f.title = c.title) bugs_in_component
+        FROM BugComponent a INNER JOIN Bug b
+          ON a.bug_num = b.num INNER JOIN Component c
+          ON a.component_id = c.id  INNER JOIN (
+            SELECT bug_num, max_bug_num FROM BugComponent a INNER JOIN ( 
+            SELECT MAX(bn.bug_nums) max_bug_num 
+            FROM (SELECT bug_num, COUNT(bug_num) bug_nums FROM BugComponent GROUP BY bug_num) bn
+            ) b
+            GROUP BY bug_num
+            HAVING COUNT(bug_num) = max_bug_num
+            ) d ON b.num = d.bug_num
+        ORDER BY bugs_in_component DESC, a.component_id, a.bug_num
+        ;
+
+END
