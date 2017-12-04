@@ -1,4 +1,4 @@
-/*Please add ; after each select statement*/
+/*Please add ; after each SELECT statement*/
 CREATE PROCEDURE recentHires()
 BEGIN
     SELECT name FROM (
@@ -39,12 +39,12 @@ BEGIN
             SET @item = (SELECT @newString);
             SET @newString = '';
         END IF;
-        SET @price = @price + (SELECT price FROM item_prices WHERE id = CAST(@item AS UNSIGNED));                
+        SET @price = @price + (SELECT price FROM item_prices WHERE id = CAST(@item  UNSIGNED));                
     END WHILE;
     RETURN @price;
 END
 
--- SELECT pack.id as id, MIN(pack.length * pack.width * pack.height) as box_dim
+-- SELECT pack.id  id, MIN(pack.length * pack.width * pack.height)  box_dim
 -- FROM (
 --     SELECT id, package_type, length, width, height
 --     FROM gifts gift INNER JOIN packages package
@@ -54,115 +54,123 @@ END
 
 
 
-DROP TABLE IF EXISTS temp;
-     CREATE temporary TABLE temp(
-          str varchar(255) default null,
-          letter varchar(55) default null,
-          cnt int default null
+DROP TABLE IF EXISTS caracteres;
+     CREATE temporary TABLE caracteres(
+          cadena varchar(255) default null,
+          letra varchar(55) default null,
+          cuenta int default null
           );
 
      INSERT INTO temp
-        select str, 'a', LENGTH(str) - LENGTH(REPLACE(str, 'a', '')) as `number` from strs
+        SELECT str, 'a', LENGTH(str) - LENGTH(REPLACE(str, 'a', ''))  cuenta FROM strs
           UNION
-        select str, 'b', LENGTH(str) - LENGTH(REPLACE(str, 'b', '')) as `number` from strs
+        SELECT str, 'b', LENGTH(str) - LENGTH(REPLACE(str, 'b', ''))  cuenta FROM strs
           UNION
-               select str, 'c', LENGTH(str) - LENGTH(REPLACE(str, 'c', '')) as `number` from strs
+               SELECT str, 'c', LENGTH(str) - LENGTH(REPLACE(str, 'c', ''))  cuenta FROM strs
           UNION
-        select str, 'd', LENGTH(str) - LENGTH(REPLACE(str, 'd', '')) as `number` from strs
+        SELECT str, 'd', LENGTH(str) - LENGTH(REPLACE(str, 'd', ''))  cuenta FROM strs
           UNION 
-        select str, 'e', LENGTH(str) - LENGTH(REPLACE(str, 'e', '')) as `number` from strs
+        SELECT str, 'e', LENGTH(str) - LENGTH(REPLACE(str, 'e', ''))  cuenta FROM strs
           UNION
-        select str, 'f', LENGTH(str) - LENGTH(REPLACE(str, 'f', '')) as `number` from strs
+        SELECT str, 'f', LENGTH(str) - LENGTH(REPLACE(str, 'f', ''))  cuenta FROM strs
           UNION
-        select str, 'g', LENGTH(str) - LENGTH(REPLACE(str, 'g', '')) as `number` from strs
+        SELECT str, 'g', LENGTH(str) - LENGTH(REPLACE(str, 'g', ''))  cuenta FROM strs
           UNION
-        select str, 'h', LENGTH(str) - LENGTH(REPLACE(str, 'h', '')) as `number` from strs
+        SELECT str, 'h', LENGTH(str) - LENGTH(REPLACE(str, 'h', ''))  cuenta FROM strs
           UNION
-        select str, 'i', LENGTH(str) - LENGTH(REPLACE(str, 'i', '')) as `number` from strs
+        SELECT str, 'i', LENGTH(str) - LENGTH(REPLACE(str, 'i', ''))  cuenta FROM strs
           UNION
-        select str, 'j', LENGTH(str) - LENGTH(REPLACE(str, 'j', '')) as `number` from strs
+        SELECT str, 'j', LENGTH(str) - LENGTH(REPLACE(str, 'j', ''))  cuenta FROM strs
           UNION
-        select str, 'k', LENGTH(str) - LENGTH(REPLACE(str, 'k', '')) as `number` from strs
+        SELECT str, 'k', LENGTH(str) - LENGTH(REPLACE(str, 'k', ''))  cuenta FROM strs
           UNION
-        select str, 'l', LENGTH(str) - LENGTH(REPLACE(str, 'l', '')) as `number` from strs
+        SELECT str, 'l', LENGTH(str) - LENGTH(REPLACE(str, 'l', ''))  cuenta FROM strs
           UNION
-        select str, 'm', LENGTH(str) - LENGTH(REPLACE(str, 'm', '')) as `number` from strs
+        SELECT str, 'm', LENGTH(str) - LENGTH(REPLACE(str, 'm', ''))  cuenta FROM strs
           UNION
-        select str, 'n', LENGTH(str) - LENGTH(REPLACE(str, 'n', '')) as `number` from strs          UNION
-        select str, 'o', LENGTH(str) - LENGTH(REPLACE(str, 'o', '')) as `number` from strs
+        SELECT str, 'n', LENGTH(str) - LENGTH(REPLACE(str, 'n', ''))  cuenta FROM strs          UNION
+        SELECT str, 'o', LENGTH(str) - LENGTH(REPLACE(str, 'o', ''))  cuenta FROM strs
           UNION
-        select str, 'p', LENGTH(str) - LENGTH(REPLACE(str, 'p', '')) as `number` from strs          UNION
-        select str, 'q', LENGTH(str) - LENGTH(REPLACE(str, 'q', '')) as `number` from strs
+        SELECT str, 'p', LENGTH(str) - LENGTH(REPLACE(str, 'p', ''))  cuenta FROM strs          UNION
+        SELECT str, 'q', LENGTH(str) - LENGTH(REPLACE(str, 'q', ''))  cuenta FROM strs
           UNION
-        select str, 'r', LENGTH(str) - LENGTH(REPLACE(str, 'r', '')) as `number` from strs
+        SELECT str, 'r', LENGTH(str) - LENGTH(REPLACE(str, 'r', ''))  cuenta FROM strs
           UNION
-        select str, 's', LENGTH(str) - LENGTH(REPLACE(str, 's', '')) as `number` from strs
+        SELECT str, 's', LENGTH(str) - LENGTH(REPLACE(str, 's', ''))  cuenta FROM strs
         UNION
-        select str, 't', LENGTH(str) - LENGTH(REPLACE(str, 't', '')) as `number` from strs
+        SELECT str, 't', LENGTH(str) - LENGTH(REPLACE(str, 't', ''))  cuenta FROM strs
       UNION
-        select str, 'u', LENGTH(str) - LENGTH(REPLACE(str, 'u', '')) as `number` from strs
+        SELECT str, 'u', LENGTH(str) - LENGTH(REPLACE(str, 'u', ''))  cuenta FROM strs
   UNION
-        select str, 'v', LENGTH(str) - LENGTH(REPLACE(str, 'v', '')) as `number` from strs
+        SELECT str, 'v', LENGTH(str) - LENGTH(REPLACE(str, 'v', ''))  cuenta FROM strs
   UNION
-        select str, 'w', LENGTH(str) - LENGTH(REPLACE(str, 'w', '')) as `number` from strs
+        SELECT str, 'w', LENGTH(str) - LENGTH(REPLACE(str, 'w', ''))  cuenta FROM strs
   UNION
-        select str, 'x', LENGTH(str) - LENGTH(REPLACE(str, 'x', '')) as `number` from strs
+        SELECT str, 'x', LENGTH(str) - LENGTH(REPLACE(str, 'x', ''))  cuenta FROM strs
   UNION
-        select str, 'y', LENGTH(str) - LENGTH(REPLACE(str, 'y', '')) as `number` from strs
+        SELECT str, 'y', LENGTH(str) - LENGTH(REPLACE(str, 'y', ''))  cuenta FROM strs
   UNION
-        select str, 'z', LENGTH(str) - LENGTH(REPLACE(str, 'z', '')) as `number` from strs
-
+        SELECT str, 'z', LENGTH(str) - LENGTH(REPLACE(str, 'z', ''))  cuenta FROM strs
 ;
 
+--     SELECT total.letra, total.total, occurrences.occurrence  occurrence, max_occurreces.max_occurrence max_occurrence, max_occurrences_reached.max_occurence_reached  max_occurrence_reached
+--     FROM (
+--       SELECT letra, SUM(cuenta) total
+--        FROM caracteres
+--        GROUP BY letra
+--        HAVING SUM(cuenta) >= 1
+--     ) total
+--     JOIN (
+--       SELECT DISTINCT letra, COUNT(letra) occurrence
+--        FROM caracteres
+--        WHERE cuenta > 0
+--        GROUP BY letra
+--     ) occurrences
+--     ON occurrences.letra = total.letra
+--     JOIN (
+--       SELECT letra, MAX(cuenta) max_occurence
+--        FROM caracteres 
+--        WHERE cuenta > 0
+--        GROUP BY letra
+--     ) max_occurrences 
+--     on total.letra = max_occurrences.letra
+--     JOIN (
+--        SELECT a.letra, COUNT(*) max_occurence_reached
+--          FROM (
+--            SELECT b.letra, b.cuenta
+--            FROM caracteres b
+--              JOIN (
+--                SELECT letra, MAX(cuenta)  max_occurence
+--                FROM caracteres 
+--                WHERE cuenta > 0
+--                GROUP BY letra
+--              ) c 
+--            ON c.letra = b.letra AND c.max_occurence = b.cuenta
+--        ) a
+--        GROUP BY a.letra
+--     ) max_occurrence_reached 
+--     ON total.letra = max_occurrences_reached.letra
+--     ORDER BY total.letra;
 
 
-     DROP TABLE IF EXISTS total;
-     CREATE TABLE total (letter varchar(255) default null, total int default null);    
-     INSERT INTO total
-     SELECT letter, sum(cnt) as total
-     FROM temp
-     group by letter
-     having sum(cnt) >= 1;
 
-     DROP TABLE IF EXISTS occurrence;
-     CREATE TABLE occurrence (letter varchar(255) default null, number int default null);    
+    SET @rowid = 0;
 
-     INSERT INTO occurrence
-     SELECT DISTINCT letter, count(letter)
-     FROM temp
-     where cnt > 0
-     GROUP by letter;
-     
-     
-     DROP TABLE IF EXISTS max_occurrence;
-     CREATE TABLE max_occurrence (letter varchar(255) default null, number int default null);
-
-     INSERT INTO max_occurrence
-     SELECT letter, max(cnt) as max_occurence
-     FROM temp 
-     where cnt > 0
-     GROUP by letter;
-
-     DROP TABLE IF EXISTS max_occurrence_reached;
-     CREATE TABLE max_occurrence_reached (letter varchar(255) default null, number int default null);
-     
-     INSERT INTO max_occurrence_reached
-     SELECT tt.letter, COUNT(*) as mor
-     FROM (
-          SELECT t.letter, t.cnt
-          FROM temp t
-          JOIN max_occurrence mo
-          ON mo.letter = t.letter AND mo.number = t.cnt
-     ) tt
-     group by tt.letter;
-     
-
-     SELECT tt.letter, tt.total, o.number as occurrence, mo.number as max_occurrence, mor.number as max_occurrence_reached
-     FROM total tt
-     join occurrence o
-     ON o.letter=tt.letter
-     JOIN max_occurrence mo
-     on tt.letter=mo.letter
-     JOIN max_occurrence_reached mor
-     ON tt.letter=mor.letter
-     ORDER BY tt.letter;
+    SELECT a.dep_name, 
+    CASE WHEN a.emp_number IS NULL THEN 0 ELSE a.emp_number END as emp_number, 
+    CASE WHEN a.total_salary IS NULL THEN 0 ELSE a.total_salary END as total_salary
+    FROM (
+      SELECT b.*, @rowid := @rowid + 1 as rowid
+      FROM (
+        SELECT d.name dep_name,
+               COUNT(e.department) emp_number, 
+               SUM(e.salary) total_salary
+          FROM Employee e
+        RIGHT JOIN Department d
+                ON e.department = d.id
+          GROUP by d.id
+          HAVING COUNT(e.department) < 6
+          ORDER BY sum(e.salary) desc, emp_number desc, d.id asc 
+          ) b
+        ) a  
+   where a.rowid % 2 != 0;
