@@ -174,3 +174,40 @@ DROP TABLE IF EXISTS caracteres;
           ) b
         ) a  
    where a.rowid % 2 != 0;
+
+
+DECLARE done BOOLEAN DEFAULT 0;
+DECLARE dname VARCHAR(255) DEFAULT "";
+DECLARE ddate DATE;
+DECLARE dmiles INT DEFAULT 0;
+DECLARE current_dn VARCHAR(255) DEFAULT "";
+
+DECLARE cur CURSOR FOR
+  SELECT driver_name, date, miles_logged 
+  FROM inspections
+  ORDER BY driver_name, date;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+DROP TABLE IF EXISTS summary;
+CREATE TABLE summary (str VARCHAR(255));
+SET @total := (SELECT SUM(miles_logged) FROM inspections);
+INSERT INTO summary VALUES (CONCAT(' Total miles driven by all drivers combined: ', @total));
+
+OPEN cur;
+get_driver: LOOP
+FETCH cur INTO dname, ddate, dmiles;
+  IF done = 1 THEN 
+    LEAVE get_driver;
+  END IF;
+  IF current_dn <> dname THEN
+    SET @sum := (SELECT SUM(miles_logged) FROM inspections where driver_name=dname);
+    SET @ct := (SELECT count(*) FROM inspections where driver_name=dname);
+    INSERT INTO summary values (CONCAT(" Name: ",dname,";"," number of inspections: ", @ct,";" , " miles driven: ", @sum));
+    SET current_dn := dname;
+  END IF;
+  INSERT INTO summary VALUES(CONCAT("  date: ", ddate, "; miles covered: ", dmiles));
+END LOOP get_driver;
+CLOSE cur;
+
+SELECT str as summary FROM summary;
+
