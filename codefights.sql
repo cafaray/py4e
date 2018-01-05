@@ -44,6 +44,30 @@
 --     RETURN @price;
 -- END
 
+<<<<<<< HEAD
+/*Please add ; after each select statement*/
+CREATE PROCEDURE bugsInComponent()
+BEGIN    
+
+        SELECT b.title bug_title, c.title component_title, 
+            (SELECT COUNT(component_id) 
+               FROM BugComponent e INNER JOIN Component f 
+               ON e.component_id = f.id WHERE f.title = c.title) bugs_in_component
+        FROM BugComponent a INNER JOIN Bug b
+          ON a.bug_num = b.num INNER JOIN Component c
+          ON a.component_id = c.id  INNER JOIN (
+            SELECT bug_num, max_bug_num FROM BugComponent a INNER JOIN ( 
+            SELECT MAX(bn.bug_nums) max_bug_num 
+            FROM (SELECT bug_num, COUNT(bug_num) bug_nums FROM BugComponent GROUP BY bug_num) bn
+            ) b
+            GROUP BY bug_num
+            HAVING COUNT(bug_num) = max_bug_num
+            ) d ON b.num = d.bug_num
+        ORDER BY bugs_in_component DESC, a.component_id, a.bug_num
+        ;
+
+END
+=======
 -- SELECT pack.id  id, MIN(pack.length * pack.width * pack.height)  box_dim
 -- FROM (
 --     SELECT id, package_type, length, width, height
@@ -285,6 +309,7 @@ WHERE owon = 1
 
 UNION ALL
 
+<<<<<<< HEAD
 SELECT name_naughts as name, 0 as xwon, 0 as owon, 0 as draw FROM 
 (
 SELECT *, board REGEXP @xwin as xwon, board REGEXP @owin as owon, board REGEXP @owin = 0 AND board REGEXP @xwin = 0 as draw from results
@@ -293,3 +318,6 @@ WHERE xwon = 1
 ) as h
 GROUP BY name
 ORDER BY points DESC, played ASC, won DESC, name ASC;
+=======
+>>>>>>> 4586b60474cee1ff6e3e5156bc8e1f75b385f37c
+>>>>>>> 94b61f49243158110c7ceaefcf57f1764a0bd49e
